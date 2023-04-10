@@ -9,3 +9,18 @@
 // ・現在日時から３日後（yyyy年mm月dd日 H時i分s秒）
 // ・現在日時から１２時間前（yyyy年mm月dd日 H時i分s秒）
 // ・2020年元旦から現在までの経過日数 (ddd日)
+
+
+// ・現在日時（xxxx年xx月xx日（x曜日））
+$week =array("日","月","火","水","木","金","土");
+$w =date('w');
+
+echo "・現在日時（" . date("Y年m月d日（{$week[$w]}曜日）") . "）<br>";
+// ・現在日時から３日後（yyyy年mm月dd日 H時i分s秒）
+echo "・現在日時から３日後（" . date("Y年m月d日 H時i分s秒", strtotime('+3 day')) . "）<br>";
+// ・現在日時から１２時間前（yyyy年mm月dd日 H時i分s秒）
+echo "・現在日時から１２時間前（" . date("Y年m月d日 H時i分s秒", strtotime('-12 hour')) . "）<br>";
+// ・2020年元旦から現在までの経過日数 (ddd日)
+$days = floor((time() - strtotime('2020-01-01')) / (60 * 60 * 24));
+echo "・2020年元旦から現在までの経過日数（{$days}日）<br>";
+?>
