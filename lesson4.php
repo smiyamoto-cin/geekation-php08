@@ -21,38 +21,30 @@
 $yen = 10000;   // 購入金額
 $product = 150; // 商品金額
 
-function calc($yen, $product) {
+function calc($yen, $product)
+{
     // この関数内に処理を記述
-    if ($yen >= $product){ //不足なし
-            $yen10000=floor(($yen-$product)/10000);
-            echo "10000円札x". $yen10000 . "枚、";
-            $y10000=10000*$yen10000;
-            $yen5000=floor(($yen-$product-$y10000)/5000);
-            echo "5000円札x". $yen5000 . "枚、";
-            $y5000=5000*$yen5000;
-            $yen1000=floor(($yen-$product-($y10000+$y5000))/1000);
-            echo "1000円札x". $yen1000 . "枚、";
-            $y1000=1000*$yen1000;
-            $yen500=floor(($yen-$product-($y10000+$y5000+$y1000))/500);
-            echo "500円玉x". $yen500 . "枚、";
-            $y500=500*$yen500;
-            $yen100=floor(($yen-$product-($y10000+$y5000+$y1000+$y500))/100);
-            echo "100円玉x". $yen100 . "枚、";
-            $y100=100*$yen100;
-            $yen50=floor(($yen-$product-($y10000+$y5000+$y1000+$y500+$y100))/50);
-            echo "50円玉x". $yen50 . "枚、";
-            $y50=50*$yen50;
-            $yen10=floor(($yen-$product-($y10000+$y5000+$y1000+$y500+$y100+$y50))/10);
-            echo "10円玉x". $yen10 . "枚、";
-            $y10=10*$yen10;
-            $yen5=floor(($yen-$product-($y10000+$y5000+$y1000+$y500+$y100+$y50+$y10))/5);
-            echo "5円玉x". $yen5 . "枚、";
-            $y5=5*$yen5;
-            $yen1=floor(($yen-$product-($y10000+$y5000+$y1000+$y500+$y100+$y50+$y10+$y5))/1);
-            echo "1円玉x". $yen1 . "枚";
-    }
-    }
+    $money = array(10000,5000,1000,500,100,50,10,5,1);
+    $moneyCount =count($money);
+    $change =$yen-$product;
+    $pages = array(1, 1, 1, 1, 1, 1, 1, 1, 1);
+    $total =0;
 
+    if ($yen==$product) { //お釣りなし
+        echo "10000円札x0枚、5000円札x0枚、1000円札x0枚、500円玉x0枚、100円玉x0枚、50円玉x0枚、10円玉x0枚、5円玉x0枚、1円玉x0枚";
+    } elseif ($yen > $product) { //お釣りあり
+        $pages[0] =floor($change/$money[0]);
+        $toal =$pages[0]*$money[0]; // 10000円札のお釣りの合計
+        for ($i=1; $i< $moneyCount ;$i++){
+         $pages[$i] =floor(($change-$total)/$money[$i]);
+         $total +=$pages[$i]*$money[$i];
+        }
+        echo "10000円札x{$pages[0]}枚、5000円札x{$pages[1]}枚、1000円札x{$pages[2]}枚、500円玉x{$pages[3]}枚、100円玉x{$pages[4]}枚、50円玉x{$pages[5]}枚、10円玉x{$pages[6]}枚、5円玉x{$pages[7]}枚、1円玉x{$pages[8]}枚";
+    } else { //不足
+        $shortfall = $product-$yen;
+        echo $shortfall . "円足りません。";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -64,8 +56,10 @@ function calc($yen, $product) {
     <section>
         <!-- ここに結果表示 -->
         <?php
-        calc($yen, $product)
+        calc(50, $product)
         ?>
     </section>
 </body>
 </html>
+
+
