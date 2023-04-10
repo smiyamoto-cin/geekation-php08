@@ -23,7 +23,36 @@ $product = 150; // 商品金額
 
 function calc($yen, $product) {
     // この関数内に処理を記述
-}
+    if ($yen >= $product){ //不足なし
+            $yen10000=floor(($yen-$product)/10000);
+            echo "10000円札x". $yen10000 . "枚、";
+            $y10000=10000*$yen10000;
+            $yen5000=floor(($yen-$product-$y10000)/5000);
+            echo "5000円札x". $yen5000 . "枚、";
+            $y5000=5000*$yen5000;
+            $yen1000=floor(($yen-$product-($y10000+$y5000))/1000);
+            echo "1000円札x". $yen1000 . "枚、";
+            $y1000=1000*$yen1000;
+            $yen500=floor(($yen-$product-($y10000+$y5000+$y1000))/500);
+            echo "500円玉x". $yen500 . "枚、";
+            $y500=500*$yen500;
+            $yen100=floor(($yen-$product-($y10000+$y5000+$y1000+$y500))/100);
+            echo "100円玉x". $yen100 . "枚、";
+            $y100=100*$yen100;
+            $yen50=floor(($yen-$product-($y10000+$y5000+$y1000+$y500+$y100))/50);
+            echo "50円玉x". $yen50 . "枚、";
+            $y50=50*$yen50;
+            $yen10=floor(($yen-$product-($y10000+$y5000+$y1000+$y500+$y100+$y50))/10);
+            echo "10円玉x". $yen10 . "枚、";
+            $y10=10*$yen10;
+            $yen5=floor(($yen-$product-($y10000+$y5000+$y1000+$y500+$y100+$y50+$y10))/5);
+            echo "5円玉x". $yen5 . "枚、";
+            $y5=5*$yen5;
+            $yen1=floor(($yen-$product-($y10000+$y5000+$y1000+$y500+$y100+$y50+$y10+$y5))/1);
+            echo "1円玉x". $yen1 . "枚";
+    }
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -34,6 +63,9 @@ function calc($yen, $product) {
 <body>
     <section>
         <!-- ここに結果表示 -->
+        <?php
+        calc($yen, $product)
+        ?>
     </section>
 </body>
 </html>
